@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+
+	<style>
+		.result {
+			width: 200px;
+			height: 100px;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+
+<button>点击发送请求</button>
+<div class="result"></div>
+
+<script>
+	var btn = document.getElementsByTagName('button')[0]
+	var result = document.getElementsByTagName('div')[0]
+
+	btn.onclick = function () {
+		//1.创建对象
+		const xhr = new XMLHttpRequest()
+
+		//2.初始化 设置请求方法和url
+		xhr.open('get','http://127.0.0.1:8000/server')
+
+		//3.发送
+		xhr.send()
+
+		//4.事件绑定，处理返回的结果
+    // on  when 当....时候
+    // readystate 是 xhr 对象中的属性, 表示状态 0 1 2 3 4
+		/*
+		* 0 未初始化，最开始的值就是 0
+		* 1 open()方法调用完毕
+		* 2 send()方法调用完毕
+		* 3 服务端返回了部分的结果
+		* 4 服务端返回了所有的结果
+		* */
+
+    // change  改变
+		xhr.onreadystatechange = function () {
+				//判断服务端是否返回了所有的结果
+			if (xhr.readyState === 4) {
+			  //判断响应状态码
+				if (200 <= xhr.status < 300) {
+				  //处理结果 响应行 头 空行 体
+          console.log(xhr.status); //状态码
+          console.log(xhr.statusText); //状态字符串
+          console.log(xhr.getAllResponseHeaders()); //所有响应头
+          console.log(xhr.response); // 响应体
+
+					//设置文本
+					result.innerHTML = xhr.response
+        }
+			}
+    }
+  }
+</script>
+
+</body>
+</html>
