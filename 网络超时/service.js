@@ -6,7 +6,7 @@ const app = express()
 
 //3.创建路由规则
 app.get('/server',(request,response) => {
-  //设置响应头
+  //设置响应头，允许跨域
   response.setHeader('Access-Control-Allow-Origin','*')
 
   //json 字符串
@@ -25,6 +25,17 @@ app.post('/server',(request,response) => {
   response.setHeader('Access-Control-Allow-Origin','*')
   //设置响应体
   response.send('hello,express,post')
+})
+
+//网络超时
+app.get('/delay',(request,response) => {
+  //设置响应头
+  response.setHeader('Access-Control-Allow-Origin','*')
+  //设置响应体
+  setTimeout(function () {
+    response.send('delay')
+  },3000)
+
 })
 
 //4.监听端口启动

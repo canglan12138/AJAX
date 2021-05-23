@@ -48,7 +48,8 @@
 			if (xhr.readyState === 4) {
 			  //判断响应状态码
 				if (200 <= xhr.status < 300) {
-				  //处理结果 响应行 头 空行 体
+          console.log(xhr);
+          //处理结果 响应行 头 空行 体
           console.log(xhr.status); //状态码
           console.log(xhr.statusText); //状态字符串
           console.log(xhr.getAllResponseHeaders()); //所有响应头

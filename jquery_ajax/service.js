@@ -38,6 +38,31 @@ app.get('/delay',(request,response) => {
 
 })
 
+//jquery
+app.all('/jquery',(request,response) => {
+  //设置响应头
+  response.setHeader('Access-Control-Allow-Origin','*')
+  //设置响应体
+  let data = {
+    name : 'lg'
+  }
+    response.send(JSON.stringify(data))
+
+})
+
+//axios
+app.all('/axios',(request,response) => {
+  //设置响应头
+  response.setHeader('Access-Control-Allow-Origin', '*');
+  response.setHeader('Access-Control-Allow-Headers', '*');
+  //设置响应体
+  let data = {
+    name : 'lg'
+  }
+  response.send(JSON.stringify(data))
+
+})
+
 //4.监听端口启动
 app.listen(8000,() => {
   console.log('服务器已启动');

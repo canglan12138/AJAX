@@ -12,6 +12,13 @@ app.get('/server',(request,response) => {
   response.send('hello,express')
 })
 
+app.post('/server',(request,response) => {
+  //设置响应头
+  response.setHeader('Access-Control-Allow-Origin','*')
+  //设置响应体
+  response.send('hello,express,post')
+})
+
 //4.监听端口启动
 app.listen(8000,() => {
   console.log('服务器已启动');

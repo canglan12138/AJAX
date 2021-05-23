@@ -20,18 +20,30 @@
 <script>
 	const result = document.getElementsByTagName('div')[0]
 
-	result.addEventListener('mouseover',function () {
+	window.onkeyup = function () {
     const xhr = new XMLHttpRequest()
-		xhr.open('post','http://127.0.0.1:8000/server')
+
+		//设置响应体的数据类型
+		xhr.responseType = 'json'
+
+		xhr.open('GET','http://127.0.0.1:8000/server')
 		xhr.send()
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4) {
-			  if (200 <= xhr.status <300) {
-          result.innerHTML = xhr.response
-				}
+			  if (200 <= xhr.status < 300) {
+
+			    //1.手动转化
+			    // let data = JSON.parse(xhr.response)
+          // console.log(data);
+			    // result.innerHTML = data.name
+
+					//2.自动转化
+          console.log(xhr.response);
+          result.innerHTML = xhr.response.name
+        }
 			}
     }
-  })
+  }
 
 </script>
 </body>

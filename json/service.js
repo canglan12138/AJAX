@@ -8,8 +8,16 @@ const app = express()
 app.get('/server',(request,response) => {
   //设置响应头
   response.setHeader('Access-Control-Allow-Origin','*')
+
+  //json 字符串
+  const data = {
+    name : 'lg',
+    age : 21
+  }
+
+  let str = JSON.stringify(data)
   //设置响应体
-  response.send('hello,express')
+  response.send(str)
 })
 
 app.post('/server',(request,response) => {

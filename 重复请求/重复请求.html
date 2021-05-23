@@ -15,24 +15,30 @@
 <body>
 
 <button id="send">发送请求</button>
-<button id="cancel">取消请求</button>
 
 
 <script>
 	const send = document.getElementById('send')
-	const cancel = document.getElementById('cancel')
 
 	let xhr = null
+	let isSending = false //标志没有发送请求
 
 	send.onclick = function () {
+	  //如果正在发送请求，取消请求，创建一个新的请求
+		if (isSending) xhr.abort()
+
     xhr = new XMLHttpRequest()
+
+		isSending = true //正在发送请求
+
 		xhr.open('GET','http://127.0.0.1:8000/delay')
 		xhr.send()
-  }
 
-  cancel.onclick = function () {
-    //取消请求
-		xhr.abort()
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4) {
+			  isSending = false //修改标识
+			}
+    }
   }
 </script>
 

@@ -11,40 +11,43 @@
 			border: 1px solid black;
 		}
 	</style>
-
 </head>
 <body>
 
+<button>点击发送请求</button>
 <div class="result"></div>
 
 <script>
-	const result = document.getElementsByTagName('div')[0]
+  var btn = document.getElementsByTagName('button')[0]
+  var result = document.getElementsByTagName('div')[0]
 
-	window.onkeyup = function () {
-    const xhr = new XMLHttpRequest()
-
-		//设置响应体的数据类型
-		xhr.responseType = 'json'
-
-		xhr.open('GET','http://127.0.0.1:8000/server')
+  btn.onclick = function () {
+		const xhr = new XMLHttpRequest()
+		xhr.open('GET','http://127.0.0.1:8000/delay')
 		xhr.send()
+
+		//超时设置
+		xhr.timeout = 2000
+
+		//超时回调
+		xhr.ontimeout = function () {
+		  alert('网络超时，请稍后重试')
+		}
+
+		//网络异常回调
+		xhr.onerror = function () {
+		  alert('无网络')
+		}
+
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4) {
 			  if (200 <= xhr.status < 300) {
-
-			    //1.手动转化
-			    // let data = JSON.parse(xhr.response)
-          // console.log(data);
-			    // result.innerHTML = data.name
-
-					//2.自动转化
-          console.log(xhr.response);
-          result.innerHTML = xhr.response.name
-        }
+          result.innerHTML = xhr.response
+				}
 			}
     }
   }
-
 </script>
+
 </body>
 </html>
